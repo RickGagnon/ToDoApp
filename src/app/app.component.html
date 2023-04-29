@@ -1,5 +1,21 @@
 
-<div class="bar"><h1>Todo App3</h1></div>
+<mat-toolbar class="mat-elevation-z8"  color="primary"><span>Atess Todo App</span>
+  <span class="flexExpand"></span><span><button mat-mini-fab><mat-icon>add</mat-icon></button></span>
+</mat-toolbar>
+
+<mat-accordion class="example-headers-align">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Personal data
+      </mat-panel-title>
+      <mat-panel-description>
+        Type your name and age
+        <mat-icon>account_circle</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    </mat-expansion-panel>
+    </mat-accordion>
 
 <div>
   <input type="text" id="newtodo" value="" /><button (click)="add()">Add</button>
