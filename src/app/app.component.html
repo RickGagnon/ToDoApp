@@ -1,16 +1,22 @@
 
-<mat-toolbar class="mat-elevation-z8"  color="primary"><span>Atess Todo App</span>
-  <span class="flexExpand"></span><span><button mat-mini-fab><mat-icon>add</mat-icon></button></span>
+<mat-toolbar class="mat-elevation-z8"  color="primary"><span class="flexExpand"></span><span>Atess Todo App</span>
+  <span class="flexExpand"></span>
+</mat-toolbar>
+<mat-toolbar class="mat-elevation-z8"  color="disabled"> <span class="flexExpand"></span> <mat-form-field>
+  <input type="text" matInput  id="newtodo" value="" />
+</mat-form-field>
+<button  mat-raised-button color="primary" (click)="add()">Add</button>
+  <span class="flexExpand"></span>
 </mat-toolbar>
 
-<mat-card>
-  <mat-form-field>
-      <input type="text" matInput  id="newtodo" value="" />
-  </mat-form-field>
-  <button  mat-raised-button (click)="add()">Add</button>
-  </mat-card>
-<div>
-  </div>
+
+  
+
+  
   <div *ngFor="let d of todoItems, let i=index;">
-  <div><input type="checkbox" value="d.itemCompleted" (click)="complete(i)" />&nbsp;<label>{{d.itemDescription}}</label>&nbsp; &nbsp;<button class="delete" (click)="delete(i)">x</button>
-</div>
+  <div style="height:35px;background-color:lightblue; text-align: center;" >
+    <span class="flexExpand"></span> <span style="text-align: left;"><mat-checkbox class="example-margin" 
+      [(ngModel)]="d.itemCompleted"> 
+      value="d.itemCompleted (click)="complete(i)" </mat-checkbox>
+    </span>&nbsp;<label>{{d.itemDescription}}</label>&nbsp; &nbsp;<button class="delete" (click)="delete(i)">x</button>
+    <span class="flexExpand"></span> 
