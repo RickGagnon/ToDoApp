@@ -1,9 +1,22 @@
 
-
-.delete{
-    color:red;
+.itemDescription{
+  
+    font-size: 24px;
+    vertical-align: middle;
+    padding-left: 10px;
+    padding-right:50px;
 }
-
+.delete{
+    color:darkred;
+    vertical-align: middle;
+    
+    //color:red;
+    //height:10px;
+}
+.completedItem {
+    vertical-align: middle;
+    padding-right: 10px;;
+}
 .flexExpand {
     flex: 1 1 auto;
     }

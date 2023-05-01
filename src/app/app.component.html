@@ -13,9 +13,17 @@
   
 
   
-  <div *ngFor="let d of todoItems, let i=index;"><mat-card>
-  <mat-card-content>   <span class="flexExpand"></span> <span style="text-align: left;"><input type="checkbox" value="d.itemCompleted" (click)="complete(i)" />
-  </span>&nbsp;<label>{{d.itemDescription}}</label>&nbsp; &nbsp;<button mat-raised-button class="delete" (click)="delete(i)">x</button>
-  <span class="flexExpand"></span> </mat-card-content>
+  <div *ngFor="let d of todoItems, let i=index;" style="text-align: center;">
+    <mat-card>
+      <mat-card-content>
+        
+         <mat-icon class="completedItem"  *ngIf="d.itemCompleted==false" (click)="complete(i)">radio_button_unchecked</mat-icon>
+
+    <mat-icon class="completedItem"  *ngIf="d.itemCompleted==true" (click)="complete(i)">check_circle</mat-icon>
+    <!--<input type="checkbox" value="d.itemCompleted" (click)="complete(i)" />-->
+  
+  <label class="itemDescription">{{d.itemDescription}}</label>
+  <mat-icon class="delete" (click)="delete(i)">cancel</mat-icon>
+   </mat-card-content>
 </mat-card>
    
