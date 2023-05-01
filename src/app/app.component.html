@@ -3,22 +3,13 @@
   <span class="flexExpand"></span><span><button mat-mini-fab><mat-icon>add</mat-icon></button></span>
 </mat-toolbar>
 
-<mat-accordion class="example-headers-align">
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Personal data
-      </mat-panel-title>
-      <mat-panel-description>
-        Type your name and age
-        <mat-icon>account_circle</mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    </mat-expansion-panel>
-    </mat-accordion>
-
+<mat-card>
+  <mat-form-field>
+      <input type="text" matInput  id="newtodo" value="" />
+  </mat-form-field>
+  <button  mat-raised-button (click)="add()">Add</button>
+  </mat-card>
 <div>
-  <input type="text" id="newtodo" value="" /><button (click)="add()">Add</button>
   </div>
   <div *ngFor="let d of todoItems, let i=index;">
   <div><input type="checkbox" value="d.itemCompleted" (click)="complete(i)" />&nbsp;<label>{{d.itemDescription}}</label>&nbsp; &nbsp;<button class="delete" (click)="delete(i)">x</button>
