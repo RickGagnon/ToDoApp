@@ -13,7 +13,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-
+import {LayoutModule} from '@angular/cdk/layout';
+import {MatListModule} from '@angular/material/list';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
@@ -34,7 +35,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    LayoutModule,
+    MatListModule
   
     
     
