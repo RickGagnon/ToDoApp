@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 import { TodoItem } from './todo';
 import { TodoService } from './todo.service';
 
@@ -6,7 +6,8 @@ import { TodoService } from './todo.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  
 })
 export class AppComponent {
   title = 'ToDoApp';
