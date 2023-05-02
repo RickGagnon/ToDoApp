@@ -16,6 +16,7 @@ import {MatInputModule} from '@angular/material/input';
 import {LayoutModule} from '@angular/cdk/layout';
 import {MatListModule} from '@angular/material/list';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -37,7 +38,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatInputModule,
     MatCheckboxModule,
     LayoutModule,
-    MatListModule
+    MatListModule,
+    HttpClientModule
   
     
     
