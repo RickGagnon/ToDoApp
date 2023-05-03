@@ -19,6 +19,14 @@
     width:30%;
     align-items: flex-start;
     
+    
+}
+.delete:hover {
+    cursor:pointer;
+    }
+
+.completedItem:hover {
+cursor:pointer;
 }
 .flexExpand {
     flex: 1 1 auto;
