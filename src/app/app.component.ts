@@ -1,5 +1,5 @@
 import { Component, OnInit,ViewEncapsulation } from '@angular/core';
-import { TodoItem } from './todo';
+import { Item } from './item';
 import { TodoService } from './todo.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent {
   title = 'ToDoApp';
-  todoItems?:TodoItem[]=[];
+  todoItems?:Item[]=[];
  
   constructor( private todoService:TodoService){
   this.todoItems=[];
@@ -24,7 +24,7 @@ ngOnInit(){
 }
 add(){
   
-  var todoItem = new TodoItem(); 
+  var todoItem = new Item(); 
   todoItem.itemDescription=(document.getElementById("newtodo") as HTMLInputElement).value;
   todoItem.itemCompleted=false;
   this.todoItems = this.todoService.addTodoItem(todoItem,this.todoItems);
@@ -32,9 +32,9 @@ add(){
   this.resetfocus()
   
 }
-delete(idx:number){
-  var s = this.todoItems?this.todoItems:[];
-  this.todoItems = this.todoService.deleteTodoItem(idx,s);
+delete(item:Item){
+  
+  this.todoService.deleteTodoItem(item.itemId).subscribe(p=>this.todoItems=p);
   this.resetfocus();
 }
 complete(idx:number){

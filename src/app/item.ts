@@ -1,5 +1,5 @@
-export class TodoItem {
+export class Item {
+itemId:number;
 itemDescription:string;
 itemCompleted:boolean;
-
 }

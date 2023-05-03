@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TodoItem } from './todo';
+import { Item } from './item';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 @Injectable({
@@ -9,8 +9,8 @@ export class TodoService {
 
   constructor(private http:HttpClient) { }
 
-  getTodoItems():Observable<TodoItem[]>{
-    return this.http.get<TodoItem[]>("https://atesstodoapi.azurewebsites.net/todo")
+  getTodoItems():Observable<Item[]>{
+    return this.http.get<Item[]>("https://atesstodoapi.azurewebsites.net/api/item")
 /*     let todoItems:Array<TodoItem>=[
     {"itemDescription":"Pick up Milk","itemCompleted":false},
     {"itemDescription":"Dr Appointment at 3:00pm","itemCompleted":false},
@@ -19,11 +19,11 @@ export class TodoService {
     ]; */
     //return todoItems
   }
- deleteTodoItem(index:number, todoItems:Array<TodoItem>){
-      todoItems.splice(index,1)
-      return todoItems;
+ deleteTodoItem(index:number):Observable<Item[]>{
+  return this.http.delete<Item[]>("https://atesstodoapi.azurewebsites.net/api/item/"+index)
+  
  }
- addTodoItem(todoItem:TodoItem,todoItems:Array<TodoItem>){
+ addTodoItem(todoItem:Item,todoItems:Array<Item>){
   todoItems.push(todoItem);
   return todoItems;
 }
