@@ -12,13 +12,18 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent {
   title = 'ToDoApp';
-  todoItems?:Item[]=[];
+  todoItems:Item[]=[];
  
   constructor( private todoService:TodoService){
-  this.todoItems=[];
+  
      
   }
 ngOnInit(){
+  this.getItems();
+  this.resetfocus();
+}
+
+getItems(){
   this.todoService.getTodoItems().subscribe(p=>this.todoItems=p);
   this.resetfocus();
 }
@@ -27,24 +32,26 @@ add(){
   var todoItem = new Item(); 
   todoItem.itemDescription=(document.getElementById("newtodo") as HTMLInputElement).value;
   todoItem.itemCompleted=false;
-  this.todoItems = this.todoService.addTodoItem(todoItem,this.todoItems);
+  this.todoService.addTodoItem(todoItem).subscribe(p=>this.todoItems.push(p));
   (document.getElementById("newtodo") as HTMLInputElement).value="";
   this.resetfocus()
   
 }
 delete(item:Item){
   
-  this.todoService.deleteTodoItem(item.itemId).subscribe(p=>this.todoItems=p);
+  this.todoService.deleteTodoItem(item.itemId).subscribe(()=>this.getItems());
   this.resetfocus();
 }
-complete(idx:number){
+update(idx:number,item:Item){
  if (this.todoItems[idx].itemCompleted==false)
   {
     this.todoItems[idx].itemCompleted = true;
+    
   }
  else {
     this.todoItems[idx].itemCompleted=false;
   }
+  this.todoService.updateTodoItem(this.todoItems[idx]).subscribe(()=>this.getItems());
   this.resetfocus();
 }
 
