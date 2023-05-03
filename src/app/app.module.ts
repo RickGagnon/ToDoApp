@@ -15,6 +15,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {LayoutModule} from '@angular/cdk/layout';
 import {MatListModule} from '@angular/material/list';
+import {MatTabsModule} from '@angular/material/tabs';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -39,6 +40,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatCheckboxModule,
     LayoutModule,
     MatListModule,
+    MatTabsModule,
     HttpClientModule
   
     
