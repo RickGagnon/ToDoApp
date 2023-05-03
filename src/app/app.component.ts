@@ -20,26 +20,37 @@ export class AppComponent {
   }
 ngOnInit(){
   this.todoService.getTodoItems().subscribe(p=>this.todoItems=p);
+  this.resetfocus();
 }
 add(){
   
   var todoItem = new TodoItem(); 
   todoItem.itemDescription=(document.getElementById("newtodo") as HTMLInputElement).value;
   todoItem.itemCompleted=false;
-  //this.todoItems = this.todoService.addTodoItem(todoItem,this.todoItems?);
+  this.todoItems = this.todoService.addTodoItem(todoItem,this.todoItems);
+  (document.getElementById("newtodo") as HTMLInputElement).value="";
+  this.resetfocus()
   
 }
 delete(idx:number){
   var s = this.todoItems?this.todoItems:[];
   this.todoItems = this.todoService.deleteTodoItem(idx,s);
+  this.resetfocus();
 }
 complete(idx:number){
- // if (this.todoItems?[idx]?.itemCompleted==false)
-  //{
-   // this.todoItems[idx].itemCompleted?=true;
-  //}
- //else {
-  //  this.todoItems[idx].itemCompleted=false;
-  //}
+ if (this.todoItems[idx].itemCompleted==false)
+  {
+    this.todoItems[idx].itemCompleted = true;
+  }
+ else {
+    this.todoItems[idx].itemCompleted=false;
+  }
+  this.resetfocus();
+}
+
+
+
+resetfocus(){
+  document.getElementById("newtodo").focus();
 }
 }
