@@ -30,15 +30,16 @@ add(){
   
 }
 delete(idx:number){
-  //this.todoItems = this.todoService.deleteTodoItem(idx,this.todoItems);
+  var s = this.todoItems?this.todoItems:[];
+  this.todoItems = this.todoService.deleteTodoItem(idx,s);
 }
 complete(idx:number){
-  //if (this.todoItems?[idx]?.itemCompleted==false)
-  {
-    //this.todoItems[idx].itemCompleted=true;
-  }
-  //else {
-    //this.todoItems[idx].itemCompleted=false;
+ // if (this.todoItems?[idx]?.itemCompleted==false)
+  //{
+   // this.todoItems[idx].itemCompleted?=true;
+  //}
+ //else {
+  //  this.todoItems[idx].itemCompleted=false;
   //}
 }
 }
