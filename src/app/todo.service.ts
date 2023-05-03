@@ -20,11 +20,15 @@ export class TodoService {
     //return todoItems
   }
  deleteTodoItem(index:number):Observable<Item[]>{
-  return this.http.delete<Item[]>("https://atesstodoapi.azurewebsites.net/api/item/"+index)
+  return this.http.delete<Item[]>("https://atesstodoapi.azurewebsites.net/api/item/"+index);
   
  }
- addTodoItem(todoItem:Item,todoItems:Array<Item>){
-  todoItems.push(todoItem);
-  return todoItems;
+ addTodoItem(todoItem:Item){
+  return this.http.post<Item>("https://atesstodoapi.azurewebsites.net/api/item",todoItem);
+
+}
+updateTodoItem(todoItem:Item):Observable<Item>{
+  return this.http.put<Item>("https://atesstodoapi.azurewebsites.net/api/item/"+todoItem.itemId,todoItem);
+
 }
 }

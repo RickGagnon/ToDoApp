@@ -1,1 +1,23 @@
-<p>working on it</p>
+
+<mat-toolbar class="mat-elevation-z8"  color="primary"><span class="flexExpand"></span><span>Atess Todo App</span>
+  <span class="flexExpand"></span>
+</mat-toolbar>
+<mat-toolbar class="mat-elevation-z8"  color="disabled"> <span class="flexExpand"></span>
+  <mat-form-field  [style.width.px]=350 [style.margin-right.px]=30>
+  <input type="text" style="width:400px;margin-right: 20px;;" matInput  id="newtodo" value="" autofocus/>
+</mat-form-field>
+<button  mat-raised-button color="primary" (click)="add()">Add</button>
+  <span class="flexExpand"></span>
+</mat-toolbar>
+<div class="center" >
+<mat-list role="list" style="text-align: center" >
+  <mat-list-item *ngFor="let d of todoItems, let i=index;" >
+    <div style="text-align: left;"><mat-icon class="completedItem"  *ngIf="d.itemCompleted==false" (click)="update(i,d)">radio_button_unchecked</mat-icon></div>
+    <div style="text-align: left;"><mat-icon class="completedItem"  *ngIf="d.itemCompleted==true" (click)="update(i,d)">check_circle</mat-icon></div>
+    <div style="text-align: left;width:430px;"><label class="itemDescription">{{d.itemDescription}}</label></div>
+    <div style="margin-right: 0; width:30px;"><mat-icon class="delete" (click)="delete(i)">cancel</mat-icon></div>
+  </mat-list-item>
+</mat-list>
+  </div>
+
+
