@@ -14,10 +14,7 @@
     //height:10px;
 }
 .completedItem {
-    vertical-align: middle;
-    padding-right: 10px;
-    width:30%;
-    align-items: flex-start;
+ 
     
     
 }
@@ -26,13 +23,65 @@
     }
 
 .completedItem:hover {
-cursor:pointer;
+    cursor:pointer;
 }
+
 .flexExpand {
     flex: 1 1 auto;
-    }
+}
 
-    .center {
+
+.center {
         display: flex;
         justify-content: center;
-      }
+}
+
+.card {
+        background-color:antiquewhite;
+}
+
+.flex-container {
+    display: flex;
+    background-color: DodgerBlue;
+  }
+  
+  .flex-container > div {
+    background-color: #f1f1f1;
+    margin: 10px;
+    padding: 20px;
+    font-size: 30px;
+  }  
+      
+
+ 
+  .parent {
+    display: flex;
+    flex-direction:row;
+  }
+
+  .child {
+    flex-grow: 1;
+  }
+    
+  .child2 {
+    width:600px;
+    
+    display: flex;
+    flex-direction:row;
+  }
+  .child3 {
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:10px;
+    padding-bottom:10px;
+    width:30px;
+    
+  }
+  .child4 {
+    padding-right:10px;
+    padding-top:10px;
+    padding-bottom:10px;
+    flex-grow: 1;
+    padding-left: 20px;
+    
+  }
