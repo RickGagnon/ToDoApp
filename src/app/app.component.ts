@@ -25,7 +25,7 @@ ngOnInit(){
 
 getItems(){
   this.todoService.getTodoItems().subscribe(p=>this.todoItems=p);
-  this.resetfocus();
+  
 }
 add(){
   
@@ -34,13 +34,13 @@ add(){
   todoItem.itemCompleted=false;
   this.todoService.addTodoItem(todoItem).subscribe(p=>this.todoItems.push(p));
   (document.getElementById("newtodo") as HTMLInputElement).value="";
-  this.resetfocus()
+  
   
 }
 delete(item:Item){
   
   this.todoService.deleteTodoItem(item.itemId).subscribe(()=>this.getItems());
-  this.resetfocus();
+  
 }
 update(idx:number,item:Item){
  if (this.todoItems[idx].itemCompleted==false)
@@ -52,12 +52,6 @@ update(idx:number,item:Item){
     this.todoItems[idx].itemCompleted=false;
   }
   this.todoService.updateTodoItem(this.todoItems[idx]).subscribe(()=>this.getItems());
-  this.resetfocus();
-}
-
-
-
-resetfocus(){
-  document.getElementById("newtodo").focus();
+  
 }
 }
