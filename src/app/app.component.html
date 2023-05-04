@@ -1,5 +1,5 @@
 
-<mat-toolbar class="mat-elevation-z8"  color="primary"><span class="flexExpand"></span><span>Atess Todo App</span>
+<mat-toolbar class="mat-elevation-z8"  color="primary"><span class="flexExpand"></span><span>Atess3 Todo App</span>
   <span class="flexExpand"></span>
 </mat-toolbar>
 <mat-tab-group>
@@ -16,9 +16,9 @@
       <div class="child"></div>
       <div class="child2">
         
-        <div> <mat-icon class="child3"  *ngIf="d.itemCompleted==false" (click)="update(i,d)">radio_button_unchecked</mat-icon></div>
-          <div> <mat-icon  class="child3" *ngIf="d.itemCompleted==true" (click)="update(i,d)">check_circle</mat-icon></div>
-          <div class="child4"><label class="itemDescription">{{d.itemDescription}}</label></div>
+        <div onfocus="this.blur()"> <mat-icon class="child3"  *ngIf="d.itemCompleted==false" (click)="update(i,d)">radio_button_unchecked</mat-icon></div>
+          <div onfocus="this.blur()"> <mat-icon  class="child3" *ngIf="d.itemCompleted==true" (click)="update(i,d)">check_circle</mat-icon></div>
+          <div  class="child4"><label class="itemDescription">{{d.itemDescription}}</label></div>
         <div class="child3"><mat-icon class="delete" (click)="delete(d)">cancel</mat-icon></div>      
         
 
