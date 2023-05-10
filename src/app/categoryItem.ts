@@ -1,6 +1,6 @@
 import { Item } from "./item";
 
-export class Category {
+export class CategoryItem {
     categoryId:number;
     categoryName:string;
     items:Item[];

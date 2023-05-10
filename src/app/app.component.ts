@@ -4,6 +4,7 @@ import { Category } from './category';
 import { UserItem } from './userItem';
 import { TodoService } from './todo.service';
 import { HttpClient } from '@angular/common/http';
+import { CategoryItem } from './categoryItem';
 
 
 @Component({
@@ -16,51 +17,84 @@ export class AppComponent {
   title = 'ToDoApp';
   todoItems:Item[]=[];
   categories:Category[]=[];
-  userItems:UserItem[] = []
- 
+  categoryItems:CategoryItem[] = []
+  listPage:boolean;
   constructor( private todoService:TodoService){
-  
-     
+  this.listPage=true;
   }
 ngOnInit(){
   //this.getItems();
-  this.getUserItems();
-  
-}
-getUserItems(){
-  this.todoService.getUserItems().subscribe(p=>this.userItems=p);
+  this.getCategoryItems()
+  this.getCategories();
 
 }
+
+
+getCategoryItems(){
+  this.todoService.getCategoryItems().subscribe(p=>this.categoryItems=p);
+}
+
+
+addCategory(){
+  var category = new Category(); 
+  category.categoryName=(document.getElementById("newtodo") as HTMLInputElement).value;
+  category.categoryId=0;
+  category.items=[];
+  
+  this.todoService.addCategory(category).subscribe(()=>this.getCategories());
+  (document.getElementById("newtodo") as HTMLInputElement).value="";
+}
+showList(){
+  this.getCategoryItems();
+  this.listPage=true;
+  
+}
+showCategories(){
+  this.listPage=false;
+this.getCategories();
+}
+getCategories(){
+  this.todoService.getCategories().subscribe(p=>this.categories=p);
+}
+deleteCategory(category:Category){
+  this.todoService.deleteCategory(category).subscribe(()=>this.getCategories());
+}
+/* getUserItems(){
+  this.todoService.getUserItems().subscribe(p=>this.userItems=p);
+  
+
+} */
 getItems(){
   this.todoService.getTodoItems().subscribe(p=>this.todoItems=p);
   
 }
-add(){
+trackByIndexFn(index: any, item: any) {
+  return index
+}
+add(catId:number){
   
   var todoItem = new Item(); 
   todoItem.itemDescription=(document.getElementById("newtodo") as HTMLInputElement).value;
   todoItem.itemCompleted=false;
-  this.todoService.addTodoItem(todoItem).subscribe(p=>this.todoItems.push(p));
+  todoItem.categoryId=catId
+  
+  this.todoService.addTodoItem(todoItem).subscribe(()=>this.getCategoryItems());
   (document.getElementById("newtodo") as HTMLInputElement).value="";
-  this.getUserItems();
-  
-  
 }
 delete(item:Item){
-  
-  this.todoService.deleteTodoItem(item.itemId).subscribe(()=>this.getItems());
-  
+
+  this.todoService.deleteTodoItem(item).subscribe(()=>this.getCategoryItems());
 }
-update(idx:number,item:Item){
- if (this.todoItems[idx].itemCompleted==false)
+update(item:Item){
+ if (item.itemCompleted==false)
   {
-    this.todoItems[idx].itemCompleted = true;
+    item.itemCompleted = true;
     
   }
  else {
-    this.todoItems[idx].itemCompleted=false;
+    item.itemCompleted=false;
   }
-  this.todoService.updateTodoItem(this.todoItems[idx]).subscribe(()=>this.getItems());
+  this.todoService.updateTodoItem(item).subscribe(()=>this.getCategoryItems());
   
 }
 }

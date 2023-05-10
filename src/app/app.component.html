@@ -1,23 +1,65 @@
 
-<mat-toolbar class="mat-elevation-z8"  color="primary"><span class="flexExpand"></span><span>Atess3 Todo App</span>
+<mat-toolbar class="mat-elevation-z8"  color="primary"><span class="flexExpand"></span><span>Atess Todo App</span>
   <span class="flexExpand"></span>
+  <span>
+  <mat-icon matTooltip="Categories" *ngIf="listPage" (click)="showCategories()">category</mat-icon>
+  <mat-icon matTooltip="Todo List" (click)="showList()" *ngIf="!listPage">list</mat-icon>
+  </span>
 </mat-toolbar>
-<mat-tab-group>
-  <mat-tab label="To Do"> 
-    <mat-toolbar class="mat-elevation-z8"  color="disabled"> <span class="flexExpand"></span>
+
+
+
+<mat-tab-group mat-align-tabs="left" >
+  
+  <div *ngIf="listPage==false">
+    <mat-tab     label="Categories"> 
+    
+      <mat-toolbar class="mat-elevation-z8"  color="disabled"> <span class="flexExpand"></span>
+           <mat-form-field  [style.width.px]=350 [style.margin-right.px]=30>
+           <input type="text" style="width:400px;margin-right: 20px;" matInput  id="newtodo" value="" />
+         </mat-form-field>
+         <button  mat-raised-button color="primary" (click)="addCategory()">Add</button>
+           <span class="flexExpand"></span>
+         </mat-toolbar>
+           
+         <div class="parent" *ngFor="let cat of categories, let i=index;" >
+           <div class="child"></div>
+           <div class="child2">
+             
+            
+               <div autofocus id="description" class="child4"><label class="itemDescription">{{cat.categoryName}}</label></div>
+             <div class="child3"><mat-icon class="delete" (click)="deleteCategory(cat)">cancel</mat-icon></div>      
+             
+     
+     
+             
+           </div> 
+           <div class="child"></div>
+     
+         </div> 
+         
+       </mat-tab>
+
+
+
+  </div>
+  <div *ngIf="listPage">
+  <mat-tab    *ngFor="let uItem of categoryItems; ; trackBy: trackByIndexFn" label="{{uItem.categoryName}}"> 
+    
+ <mat-toolbar class="mat-elevation-z8"  color="disabled"> <span class="flexExpand"></span>
       <mat-form-field  [style.width.px]=350 [style.margin-right.px]=30>
-      <input type="text" style="width:400px;margin-right: 20px;;" matInput  id="newtodo" value="" />
+      <input type="text" style="width:400px;margin-right: 20px;" matInput  id="newtodo" value="" />
     </mat-form-field>
-    <button  mat-raised-button color="primary" (click)="add()">Add</button>
+    <button  mat-raised-button color="primary" (click)="add(uItem.categoryId)">Add</button>
       <span class="flexExpand"></span>
     </mat-toolbar>
-    
-    <div class="parent" *ngFor="let d of todoItems, let i=index;" >
+      
+    <div class="parent" *ngFor="let d of uItem.items, let i=index;" >
       <div class="child"></div>
       <div class="child2">
         
-        <div> <mat-icon class="child3"  *ngIf="d.itemCompleted==false" (click)="update(i,d)">radio_button_unchecked</mat-icon></div>
-          <div> <mat-icon  class="child3" *ngIf="d.itemCompleted==true" (click)="update(i,d)">check_circle</mat-icon></div>
+        <div> <mat-icon class="child3"  *ngIf="d.itemCompleted==false" (click)="update(d)">radio_button_unchecked</mat-icon></div>
+          <div> <mat-icon  class="child3" *ngIf="d.itemCompleted==true" (click)="update(d)">check_circle</mat-icon></div>
           <div autofocus id="description" class="child4"><label class="itemDescription">{{d.itemDescription}}</label></div>
         <div class="child3"><mat-icon class="delete" (click)="delete(d)">cancel</mat-icon></div>      
         
@@ -27,38 +69,10 @@
       </div> 
       <div class="child"></div>
 
-    </div>
+    </div> 
     
   </mat-tab>
-  <mat-tab label="Grocery"> 
-    <mat-toolbar class="mat-elevation-z8"  color="disabled"> <span class="flexExpand"></span>
-      <mat-form-field  [style.width.px]=350 [style.margin-right.px]=30>
-      <input type="text" style="width:400px;margin-right: 20px;;" matInput  id="newtodo" value="" />
-    </mat-form-field>
-    <button  mat-raised-button color="primary" (click)="add()">Add</button>
-      <span class="flexExpand"></span>
-    </mat-toolbar>
-    
-    <div class="parent" *ngFor="let d of todoItems, let i=index;" >
-      <div class="child"></div>
-      <div class="child2">
-        
-        <div> <mat-icon class="child3"  *ngIf="d.itemCompleted==false" (click)="update(i,d)">radio_button_unchecked</mat-icon></div>
-          <div> <mat-icon  class="child3" *ngIf="d.itemCompleted==true" (click)="update(i,d)">check_circle</mat-icon></div>
-          <div class="child4"><label class="itemDescription">{{d.itemDescription}}</label></div>
-        <div class="child3"><mat-icon class="delete" (click)="delete(d)">cancel</mat-icon></div>      
-        
-
-
-        
-      </div> 
-      <div class="child"></div>
-
-    </div>
-    
- 
-  </mat-tab>
-  
+ </div>
 </mat-tab-group>
 
 
