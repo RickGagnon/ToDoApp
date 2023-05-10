@@ -5,7 +5,6 @@ import { UserItem } from './userItem';
 import { TodoService } from './todo.service';
 import { HttpClient } from '@angular/common/http';
 import { CategoryItem } from './categoryItem';
-import { SignalrService } from './signalr.service';
 
 
 @Component({
@@ -20,11 +19,11 @@ export class AppComponent {
   categories:Category[]=[];
   categoryItems:CategoryItem[] = []
   listPage:boolean;
-  constructor( private todoService:TodoService, public signalService:SignalrService){
+  constructor( private todoService:TodoService){
   this.listPage=true;
   }
 ngOnInit(){
-  this..signalService.startConnection();
+  
   //this.getItems();
   this.getCategoryItems()
   this.getCategories();
