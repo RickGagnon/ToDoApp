@@ -1,4 +1,5 @@
-<!-- 
+
+
 <mat-toolbar class="mat-elevation-z8"  color="primary"><span class="flexExpand"></span><span>Atess Todo App</span>
   <span class="flexExpand"></span>
   <span>
@@ -9,11 +10,9 @@
 
 
 
-<mat-tab-group mat-align-tabs="left" >
-  
+<mat-tab-group mat-align-tabs="left" > 
   <div *ngIf="listPage==false">
     <mat-tab     label="Categories"> 
-    
       <mat-toolbar class="mat-elevation-z8"  color="disabled"> <span class="flexExpand"></span>
            <mat-form-field  [style.width.px]=350 [style.margin-right.px]=30>
            <input type="text" style="width:400px;margin-right: 20px;" matInput  id="newtodo" value="" />
@@ -25,7 +24,7 @@
          <div class="parent" *ngFor="let cat of categories, let i=index;" >
            <div class="child"></div>
            <div class="child2">
-             
+
             
                <div autofocus id="description" class="child4"><label class="itemDescription">{{cat.categoryName}}</label></div>
              <div class="child3"><mat-icon class="delete" (click)="deleteCategory(cat)">cancel</mat-icon></div>      
@@ -43,7 +42,8 @@
 
 
   </div>
-  <div *ngIf="listPage">
+
+  <div *ngIf="listPage" class="fireworks">
   <mat-tab    *ngFor="let uItem of categoryItems; ; trackBy: trackByIndexFn" label="{{uItem.categoryName}}"> 
     
  <mat-toolbar class="mat-elevation-z8"  color="disabled"> <span class="flexExpand"></span>
@@ -78,6 +78,5 @@
 
 
 
- -->
 
- <p>testing</p>
+

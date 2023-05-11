@@ -1,10 +1,16 @@
-import { Component, OnInit,ViewEncapsulation } from '@angular/core';
+import { Component, OnInit,ViewEncapsulation,ViewChild } from '@angular/core';
 import { Item } from './item';
 import { Category } from './category';
 import { UserItem } from './userItem';
 import { TodoService } from './todo.service';
 import { HttpClient } from '@angular/common/http';
 import { CategoryItem } from './categoryItem';
+import { environment} from "../environments/environment"
+
+
+import  * as signalR from '@microsoft/signalr';
+import { connect } from 'rxjs';
+
 
 
 @Component({
@@ -14,21 +20,25 @@ import { CategoryItem } from './categoryItem';
   
 })
 export class AppComponent {
+
+
+
+
   title = 'ToDoApp';
   todoItems:Item[]=[];
   categories:Category[]=[];
   categoryItems:CategoryItem[] = []
   listPage:boolean;
+  
+
   constructor( private todoService:TodoService){
   this.listPage=true;
   }
-ngOnInit(){
-  
-  //this.getItems();
-  this.getCategoryItems()
-  this.getCategories();
 
-}
+  ngOnInit(){
+      this.getCategoryItems()
+      this.getCategories();
+  }
 
 
 getCategoryItems(){
@@ -60,11 +70,7 @@ getCategories(){
 deleteCategory(category:Category){
   this.todoService.deleteCategory(category).subscribe(()=>this.getCategories());
 }
-/* getUserItems(){
-  this.todoService.getUserItems().subscribe(p=>this.userItems=p);
-  
 
-} */
 getItems(){
   this.todoService.getTodoItems().subscribe(p=>this.todoItems=p);
   
@@ -86,11 +92,13 @@ delete(item:Item){
 
   this.todoService.deleteTodoItem(item).subscribe(()=>this.getCategoryItems());
 }
+
 update(item:Item){
+
  if (item.itemCompleted==false)
   {
     item.itemCompleted = true;
-    
+
   }
  else {
     item.itemCompleted=false;
@@ -98,4 +106,8 @@ update(item:Item){
   this.todoService.updateTodoItem(item).subscribe(()=>this.getCategoryItems());
   
 }
+
+
+
+
 }
