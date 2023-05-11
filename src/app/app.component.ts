@@ -14,7 +14,7 @@ import { connect } from 'rxjs';
 
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-root', 
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   
@@ -46,23 +46,25 @@ getCategoryItems(){
 }
 
 
-addCategory(){
-  var category = new Category(); 
-  category.categoryName=(document.getElementById("newtodo") as HTMLInputElement).value;
-  category.categoryId=0;
-  category.items=[];
-  
-  this.todoService.addCategory(category).subscribe(()=>this.getCategories());
-  (document.getElementById("newtodo") as HTMLInputElement).value="";
-}
+// allow to show different page using same doc
 showList(){
   this.getCategoryItems();
-  this.listPage=true;
-  
+  this.listPage=true; 
 }
 showCategories(){
   this.listPage=false;
 this.getCategories();
+}
+
+
+// Operations for Add/Remove Category
+addCategory(){
+  var category = new Category(); 
+  category.categoryName=(document.getElementById("newtodo") as HTMLInputElement).value;
+  category.categoryId=0;
+  category.items=[]; 
+  this.todoService.addCategory(category).subscribe(()=>this.getCategories());
+  (document.getElementById("newtodo") as HTMLInputElement).value="";
 }
 getCategories(){
   this.todoService.getCategories().subscribe(p=>this.categories=p);
@@ -70,7 +72,6 @@ getCategories(){
 deleteCategory(category:Category){
   this.todoService.deleteCategory(category).subscribe(()=>this.getCategories());
 }
-
 getItems(){
   this.todoService.getTodoItems().subscribe(p=>this.todoItems=p);
   
@@ -78,6 +79,11 @@ getItems(){
 trackByIndexFn(index: any, item: any) {
   return index
 }
+
+
+
+
+// Operations to Add/Update/Remove Items
 add(catId:number){
   
   var todoItem = new Item(); 
