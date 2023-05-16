@@ -72,7 +72,8 @@ addCategory(){
   category.categoryName=(document.getElementById("newtodo") as HTMLInputElement).value;
   category.categoryId=0;
   category.items=[]; 
-  this.todoService.addCategory(category).subscribe(() => (this.refreshUsers()));
+  this.todoService.addCategory(category).subscribe(p=> { this.getCategoryItems()});
+  this.refreshUsers();
   (document.getElementById("newtodo") as HTMLInputElement).value="";
 }
 getCategories(){
@@ -89,8 +90,7 @@ trackByIndexFn(index: any, item: any) {
   return index
 }
  refreshUsers(){
-  this.getCategoryItems();
-  this.getCategories();
+
   this.hubConnectionBuilder.send("NotifyNewTodoItem").then(() => (console.log("sent notification")));
  }
 
