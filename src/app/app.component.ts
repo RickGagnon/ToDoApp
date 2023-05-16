@@ -89,6 +89,8 @@ trackByIndexFn(index: any, item: any) {
   return index
 }
  refreshUsers(){
+  this.getCategoryItems();
+  this.getCategories();
   this.hubConnectionBuilder.send("NotifyNewTodoItem").then(() => (console.log("sent notification")));
  }
 
