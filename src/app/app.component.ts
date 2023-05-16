@@ -42,6 +42,7 @@ export class AppComponent {
       this.hubConnectionBuilder = new HubConnectionBuilder().withUrl('https://localhost:7095/todohub').configureLogging(LogLevel.Information).build();
         this.hubConnectionBuilder.start().then(() => console.log('Connection started.......!')).catch(err => console.log('Error while connect with server'));
         this.hubConnectionBuilder.on('ReceiveNewTodoItem', (result: any) => {
+          console.log("activated function");
           this.getCategoryItems();
           this.getCategories();
         });
