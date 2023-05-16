@@ -6,6 +6,7 @@ import { TodoService } from './todo.service';
 import { HttpClient } from '@angular/common/http';
 import { CategoryItem } from './categoryItem';
 import { environment} from "../environments/environment"
+import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 
 
 import  * as signalR from '@microsoft/signalr';
@@ -29,15 +30,21 @@ export class AppComponent {
   categories:Category[]=[];
   categoryItems:CategoryItem[] = []
   listPage:boolean;
-  
+  private hubConnectionBuilder!: HubConnection;
 
   constructor( private todoService:TodoService){
   this.listPage=true;
   }
 
   ngOnInit(){
-      this.getCategoryItems()
+      this.getCategoryItems();
       this.getCategories();
+      this.hubConnectionBuilder = new HubConnectionBuilder().withUrl('https://localhost:7095/todohub').configureLogging(LogLevel.Information).build();
+        this.hubConnectionBuilder.start().then(() => console.log('Connection started.......!')).catch(err => console.log('Error while connect with server'));
+        this.hubConnectionBuilder.on('ReceiveNewTodoItem', (result: any) => {
+          this.getCategoryItems();
+          this.getCategories();
+        });
   }
 
 
@@ -60,17 +67,18 @@ this.getCategories();
 // Operations for Add/Remove Category
 addCategory(){
   var category = new Category(); 
+  
   category.categoryName=(document.getElementById("newtodo") as HTMLInputElement).value;
   category.categoryId=0;
   category.items=[]; 
-  this.todoService.addCategory(category).subscribe(()=>this.getCategories());
+  this.todoService.addCategory(category).subscribe(() => (this.refreshUsers()));
   (document.getElementById("newtodo") as HTMLInputElement).value="";
 }
 getCategories(){
   this.todoService.getCategories().subscribe(p=>this.categories=p);
 }
 deleteCategory(category:Category){
-  this.todoService.deleteCategory(category).subscribe(()=>this.getCategories());
+  this.todoService.deleteCategory(category).subscribe(() => (this.refreshUsers()));
 }
 getItems(){
   this.todoService.getTodoItems().subscribe(p=>this.todoItems=p);
@@ -79,24 +87,25 @@ getItems(){
 trackByIndexFn(index: any, item: any) {
   return index
 }
-
-
+ refreshUsers(){
+  this.hubConnectionBuilder.send("NotifyNewTodoItem").then(() => (console.log("sent notification")));
+ }
 
 
 // Operations to Add/Update/Remove Items
-add(catId:number){
+add(catItems:CategoryItem){
   
   var todoItem = new Item(); 
   todoItem.itemDescription=(document.getElementById("newtodo") as HTMLInputElement).value;
   todoItem.itemCompleted=false;
-  todoItem.categoryId=catId
+  todoItem.categoryId=catItems.categoryId
   
-  this.todoService.addTodoItem(todoItem).subscribe(()=>this.getCategoryItems());
+  this.todoService.addTodoItem(todoItem).subscribe(() => (this.refreshUsers()));
   (document.getElementById("newtodo") as HTMLInputElement).value="";
 }
 delete(item:Item){
 
-  this.todoService.deleteTodoItem(item).subscribe(()=>this.getCategoryItems());
+  this.todoService.deleteTodoItem(item).subscribe(() => (this.refreshUsers()));
 }
 
 update(item:Item){
@@ -109,7 +118,7 @@ update(item:Item){
  else {
     item.itemCompleted=false;
   }
-  this.todoService.updateTodoItem(item).subscribe(()=>this.getCategoryItems());
+  this.todoService.updateTodoItem(item).subscribe(() => (this.refreshUsers()));
   
 }
 
