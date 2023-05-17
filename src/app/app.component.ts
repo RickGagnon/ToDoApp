@@ -33,18 +33,20 @@ export class AppComponent {
   private hubConnectionBuilder!: HubConnection;
 
   constructor( private todoService:TodoService){
-  this.listPage=true;
+      this.getCategoryItems();
+      this.getCategories();
+
+  
   }
 
   ngOnInit(){
-      this.getCategoryItems();
-      this.getCategories();
-      this.hubConnectionBuilder = new HubConnectionBuilder().withUrl(environment.apiUrl + "todohub").configureLogging(LogLevel.Information).build();
+    this.listPage=true;
+      this.hubConnectionBuilder = new HubConnectionBuilder().withUrl(environment.apiUrl + "todohub").build();
         this.hubConnectionBuilder.start().then(() => console.log('Connection started.......!')).catch(err => console.log('Error while connect with server'));
-        this.hubConnectionBuilder.on('ReceiveNewTodoItem', (result: any) => {
-          console.log("activated function");
+        this.hubConnectionBuilder.on('ReceiveNewTodoItem', async  (p)=> { 
           this.getCategoryItems();
           this.getCategories();
+ 
         });
   }
 
@@ -72,7 +74,7 @@ addCategory(){
   category.categoryName=(document.getElementById("newtodo") as HTMLInputElement).value;
   category.categoryId=0;
   category.items=[]; 
-  this.todoService.addCategory(category).subscribe(p=> { this.getCategoryItems()});
+  this.todoService.addCategory(category).subscribe(p=> { });
   this.refreshUsers();
   (document.getElementById("newtodo") as HTMLInputElement).value="";
 }
