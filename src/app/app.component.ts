@@ -74,7 +74,8 @@ addCategory(){
   category.categoryName=(document.getElementById("newtodo") as HTMLInputElement).value;
   category.categoryId=0;
   category.items=[]; 
-  this.todoService.addCategory(category).subscribe(p=> { });
+  this.categories.push(category);
+  this.todoService.addCategory(category).subscribe(p=> { this.getCategories()});
   this.refreshUsers();
   (document.getElementById("newtodo") as HTMLInputElement).value="";
 }
