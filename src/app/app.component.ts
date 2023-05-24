@@ -44,19 +44,21 @@ export class AppComponent {
       this.hubConnectionBuilder = new HubConnectionBuilder().withUrl(environment.apiUrl + "todohub").build();
         this.hubConnectionBuilder.start().then(() => console.log('Connection started.......!')).catch(err => console.log('Error while connect with server'));
         this.hubConnectionBuilder.on('ReceiveNewTodoItem', async  p=> { 
-          console.log("testing");
+
           this.todoService.getCategoryItems().subscribe(p=>this.categoryItems=p);
           //this.getCategoryItems();
           //this.getCategories();
-          console.log("testing2");
- 
+        });
+        this.hubConnectionBuilder.on('RefreshCategories', async  p=> { 
+          this.todoService.getCategories().subscribe(p=>this.categories=p);
+          //this.todoService.getCategoryItems().subscribe(p=>this.categoryItems=p);
+          //this.getCategoryItems();
+          //this.getCategories();
         });
   }
 
 
-getCategoryItems(){
-  this.todoService.getCategoryItems().subscribe(p=>this.categoryItems=p);
-}
+
 
 
 // allow to show different page using same doc
@@ -70,6 +72,19 @@ this.getCategories();
 }
 
 
+
+getCategoryItems(){
+  this.todoService.getCategoryItems().subscribe(p=>this.categoryItems=p);
+}
+getCategories(){
+  this.todoService.getCategories().subscribe(p=>this.categories=p);
+}
+
+
+
+
+
+
 // Operations for Add/Remove Category
 addCategory(){
   var category = new Category(); 
@@ -77,15 +92,13 @@ addCategory(){
   category.categoryId=0;
   category.items=[]; 
   this.categories.push(category);
-  this.todoService.addCategory(category).subscribe(p=> { this.getCategories()});
-  this.refreshUsers();
+  this.todoService.addCategory(category).subscribe(p=> { this.getCategoriesHub()});
+  //this.refreshUsers();
   (document.getElementById("newtodo") as HTMLInputElement).value="";
 }
-getCategories(){
-  this.todoService.getCategories().subscribe(p=>this.categories=p);
-}
+
 deleteCategory(category:Category){
-  this.todoService.deleteCategory(category).subscribe(() => (this.refreshUsers()));
+  this.todoService.deleteCategory(category).subscribe(() => (this.getCategoriesHub()));
 }
 getItems(){
   this.todoService.getTodoItems().subscribe(p=>this.todoItems=p);
@@ -93,6 +106,11 @@ getItems(){
 }
 trackByIndexFn(index: any, item: any) {
   return index
+}
+
+
+getCategoriesHub(){
+  this.hubConnectionBuilder.send("RefreshCategories").then(() => (console.log("getCategories")));
 }
  refreshUsers(){
 
