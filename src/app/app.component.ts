@@ -43,7 +43,7 @@ export class AppComponent {
     this.listPage=true;
       this.hubConnectionBuilder = new HubConnectionBuilder().withUrl(environment.apiUrl + "todohub").build();
         this.hubConnectionBuilder.start().then(() => console.log('Connection started.......!')).catch(err => console.log('Error while connect with server'));
-        this.hubConnectionBuilder.on('ReceiveNewTodoItem', async  (p)=> { 
+        this.hubConnectionBuilder.on('ReceiveNewTodoItem',   (p)=> { 
           console.log("testing");
           this.getCategoryItems();
           this.getCategories();
