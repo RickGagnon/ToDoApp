@@ -44,8 +44,10 @@ export class AppComponent {
       this.hubConnectionBuilder = new HubConnectionBuilder().withUrl(environment.apiUrl + "todohub").build();
         this.hubConnectionBuilder.start().then(() => console.log('Connection started.......!')).catch(err => console.log('Error while connect with server'));
         this.hubConnectionBuilder.on('ReceiveNewTodoItem', async  (p)=> { 
+          console.log("testing");
           this.getCategoryItems();
           this.getCategories();
+          console.log("testing2");
  
         });
   }
@@ -70,7 +72,6 @@ this.getCategories();
 // Operations for Add/Remove Category
 addCategory(){
   var category = new Category(); 
-  
   category.categoryName=(document.getElementById("newtodo") as HTMLInputElement).value;
   category.categoryId=0;
   category.items=[]; 
