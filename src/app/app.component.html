@@ -42,15 +42,15 @@
 
 
   </div>
-
-  <div *ngIf="listPage" class="fireworks">
-  <mat-tab    *ngFor="let categoryItem of categoryItems; ; trackBy: trackByIndexFn" label="{{categoryItem.categoryName}}"> 
+  <div *ngIf="listPage==true">
+  
+  <mat-tab    *ngFor="let categoryItem of categoryItems;let j=index ; trackBy: trackByIndexFn" label="{{categoryItem.categoryName}}"> 
     
  <mat-toolbar class="mat-elevation-z8"  color="disabled"> <span class="flexExpand"></span>
       <mat-form-field  [style.width.px]=350 [style.margin-right.px]=30>
       <input type="text" style="width:400px;margin-right: 20px;" matInput  id="newtodo" value="" />
     </mat-form-field>
-    <button  mat-raised-button color="primary" (click)="add(categoryItem)">Add</button>
+    <button  mat-raised-button color="primary" (click)="add(categoryItem,j)">Add</button>
       <span class="flexExpand"></span>
     </mat-toolbar>
       
@@ -61,7 +61,7 @@
         <div> <mat-icon class="child3"  *ngIf="d.itemCompleted==false" (click)="update(d)">radio_button_unchecked</mat-icon></div>
           <div> <mat-icon  class="child3" *ngIf="d.itemCompleted==true" (click)="update(d)">check_circle</mat-icon></div>
           <div autofocus id="description" class="child4"><label class="itemDescription">{{d.itemDescription}}</label></div>
-        <div class="child3"><mat-icon class="delete" (click)="delete(d)">cancel</mat-icon></div>      
+        <div class="child3"><mat-icon class="delete" (click)="delete(j,i,d)">cancel</mat-icon></div>      
         
 
 
@@ -72,7 +72,8 @@
     </div> 
     
   </mat-tab>
- </div>
+  </div>
+
 </mat-tab-group>
 
 

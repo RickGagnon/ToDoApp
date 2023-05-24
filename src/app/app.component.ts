@@ -99,18 +99,20 @@ trackByIndexFn(index: any, item: any) {
 
 
 // Operations to Add/Update/Remove Items
-add(catItems:CategoryItem){
+add(catItem:CategoryItem, catIndex:number){
   
   var todoItem = new Item(); 
   todoItem.itemDescription=(document.getElementById("newtodo") as HTMLInputElement).value;
   todoItem.itemCompleted=false;
-  todoItem.categoryId=catItems.categoryId
-  
+  todoItem.categoryId=catItem.categoryId
+  todoItem.itemId=0;
+  this.categoryItems[catIndex].items.push(todoItem);
   this.todoService.addTodoItem(todoItem).subscribe(() => (this.refreshUsers()));
   (document.getElementById("newtodo") as HTMLInputElement).value="";
 }
-delete(item:Item){
-
+delete(catindex:number,itemindex:number,item:Item){
+  
+  this.categoryItems[catindex].items.splice(itemindex);
   this.todoService.deleteTodoItem(item).subscribe(() => (this.refreshUsers()));
 }
 
