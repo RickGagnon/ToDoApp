@@ -1,6 +1,7 @@
 import { Component, OnInit,ViewEncapsulation,ViewChild } from '@angular/core';
 import { Item } from './item';
 import { Category } from './category';
+
 import { UserItem } from './userItem';
 import { TodoService } from './todo.service';
 import { HttpClient } from '@angular/common/http';
@@ -22,9 +23,6 @@ import { connect } from 'rxjs';
 })
 export class AppComponent {
 
-
-
-
   title = 'ToDoApp';
   todoItems:Item[]=[];
   categories:Category[]=[];
@@ -39,7 +37,8 @@ export class AppComponent {
   
   }
 
-  ngOnInit(){
+  ngOnInit(){  this.getCategoryItems();
+          this.getCategories();
     this.listPage=true;
       this.hubConnectionBuilder = new HubConnectionBuilder().withUrl(environment.apiUrl + "todohub").build();
         this.hubConnectionBuilder.start().then(() => console.log('Connection started.......!')).catch(err => console.log('Error while connect with server'));
@@ -52,8 +51,7 @@ export class AppComponent {
         this.hubConnectionBuilder.on('RefreshCategories', async  p=> { 
           this.todoService.getCategories().subscribe(p=>this.categories=p);
           //this.todoService.getCategoryItems().subscribe(p=>this.categoryItems=p);
-          //this.getCategoryItems();
-          //this.getCategories();
+
         });
   }
 
